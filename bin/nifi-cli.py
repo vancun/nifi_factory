@@ -3,68 +3,11 @@ import requests
 import re
 import cmd
 import json
-
-class VancunNiFiClient:
-    
-    def __init__(self, nifi_url):
-        self.__base_url = re.sub('(.*)://([^/]+).*', '\\1://\\2/nifi-api/', nifi_url)
-        self.__current_user = self.get_current_user()
-        self.__client_id = self.get_client_id()
-
-    @property
-    def base_url(self):
-        return self.__base_url
-
-    @property
-    def current_user(self):
-        return self.__current_user
-    
-    @property
-    def client_id(self):
-        return self.__client_id
-
-    def get_current_user(self):
-        end_point = "{}flow/current-user".format(self.__base_url)
-        response = requests.get(end_point)
-        if (response.status_code != 200):
-            raise Exception("Unable to get current user from {}.".format(end_point))
-        return response.json()
-
-    def get_client_id(self):
-        end_point = "{}flow/client-id".format(self.__base_url)
-        response = requests.get(end_point)
-        if (response.status_code != 200):
-            raise Exception("Unable to get client id from {}.".format(end_point))
-        return response.text
-
-    def get_search(self, query):
-        params = {'q': query}
-        end_point = "{}flow/search-results".format(self.__base_url)
-        response = requests.get(end_point, params=params)
-        if (response.status_code != 200):
-            print(response)
-            raise Exception("Unable to perform search for {} from {}.".format(query, end_point))
-        return response.json()
-
-    def get_process_group(self, group_id):
-        end_point = "{}flow/process-groups/{}".format(self.__base_url, group_id)
-        response = requests.get(end_point)
-        if (response.status_code != 200):
-            raise Exception("Unable to get process group from {}.".format(end_point))
-        return response.json()
-        
-    def get_processor(self, processor_id):
-        end_point = "{}processors/{}".format(self.__base_url, processor_id)
-        response = requests.get(end_point)
-        if (response.status_code != 200):
-            raise Exception("Unable to get processor from {}.".format(end_point))
-        return response.json()
-        
-
-
+from nifi import *
 
 
 class VancunNiFiShell(cmd.Cmd):
+    __vars = {}
 
     def __init__(self, nifi_url):
         super().__init__()
@@ -73,7 +16,7 @@ class VancunNiFiShell(cmd.Cmd):
 
     def preloop(self):
         super().preloop()
-        nifi = VancunNiFiClient(self.nifi_url)
+        nifi = NiFiClient(self.nifi_url)
         self.nifi = nifi
         print("Connected to '{nifi}' as '{user}'. Client ID: '{id}'.".format(nifi=nifi.base_url, id=nifi.client_id, user=nifi.current_user['identity']))
         print("Type '?' or 'help' for help, 'bye' to exit.")
@@ -94,6 +37,8 @@ class VancunNiFiShell(cmd.Cmd):
 
     def handle_result(self, var, options={}):
         str = self.var_dumps(var, options)
+        if ('var' in options):
+            self.__vars[options['var']] = var
         if (options.get('file', False)):
             with open(options['file'], 'w') as f:
                 f.write(str)
@@ -130,18 +75,30 @@ class VancunNiFiShell(cmd.Cmd):
             result = result[int(node_key) if node_key.isnumeric() else node_key]
         return result
 
-    def info_user(self):
+    def info_user(self, options):
         return self.nifi.current_user
 
-    def info_client_id(self):
+    def info_client_id(self, options):
         return self.nifi.client_id
 
-    def info_base_url(self):
+    def info_base_url(self, options):
         return self.nifi.base_url
+
+    def info_root_id(self, options):
+        """Get root id"""
+        return self.nifi.root_id
+
+    def info_var(self, options):
+        if ('name' not in options):
+            raise NameError('Variable not specified. Use "info var name=<var-name>".')
+        var_name = options.get('name')
+        if (not var_name in self.__vars):
+            raise NameError('Variable {} not found.'.format(var_name))
+        return self.__vars[var_name]
 
     def do_info(self, arg):
         """Get NiFi information.
-           Syntax: info {user|client_id|base_url}"""
+           Syntax: info {user|client_id|root_id|base_url}"""
         
         try:
             options = self.parse_arg(arg, arg_key='what')
@@ -150,7 +107,7 @@ class VancunNiFiShell(cmd.Cmd):
             if (method_ref is None):
                 print("'{}' is not a valid attribute.".format(arg))
             else:
-                self.handle_result(method_ref(), options)
+                self.handle_result(method_ref(options), options)
         except Exception as ex:
             print("ERROR: {}".format(ex))
 
@@ -183,6 +140,14 @@ class VancunNiFiShell(cmd.Cmd):
         except Exception as ex:
             print("ERROR: {}".format(ex))
 
+    def do_get_templates(self, arg): 
+        """Get a list of templates.
+        """
+        try:
+            options = self.parse_arg(arg)
+            self.handle_result(self.nifi.get_templates(), options)
+        except Exception as ex:
+            print("ERROR: {}".format(ex))
 
     def do_search(self, arg):
         """Performs search against this NiFi, using the query.

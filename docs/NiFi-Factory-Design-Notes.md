@@ -18,6 +18,74 @@ If flow already exists, the behavior is controlled through configuration option:
 
 
 
+## Pipeline
+
+A *pipeline* is a logical grouping of activities performing a set of processes
+such as extracting data, transforming it, and loading into some database,
+data warehouse, or storage. For example, a pipeline can contain a group
+of activities to ingest data from Amazon S3 (an on-premise file system to a
+staging store) and then run a Spark query on an Azure Databricks cluster
+to partition the data.
+
+A data factory might have one or more pipelines.
+
+An Azure Data Factory instance uses JSON to describe each of its
+entities. If you are using visual authoring, you will not need to understand
+this structure. But when writing code/script, you’ll need to understand this
+JSON payload (see Table 2-1).
+
+Here is how a pipeline is defined in JSON format:
+
+```json
+{
+	"name": "PipelineName",
+	"properties": {
+		"description": "pipeline description",
+		"activities":
+		[
+		],
+		"parameters": {}
+	}
+}
+```
+
+
+
+| Tag         | Description                                                  | Type   | Required |
+| ----------- | ------------------------------------------------------------ | ------ | -------- |
+| name        | Specifies the name of the pipeline. Use a name that represents the action that the pipeline performs. Maximum number of characters: 140. Must start with a letter, number, or underscore (`_`). The following characters are not allowed: `. + ? / < > * % & : \` | String | Yes      |
+| description | Specifies the text describing what the pipeline is used for. | String | No       |
+| activities  | The pipeline can have one or more activities defined within it. | Array  | Yes      |
+| parameters  | The parameters property can have one or more parameters defined within the pipeline, making your pipeline flexible for reuse. | List   | No       |
+
+### Activities
+
+Activities represent a processing step in a pipeline. These are specific
+tasks that compose the overall pipeline. For example, you might use a
+Spark activity, which runs a Spark query against Azure Databricks or an
+HDInsight cluster, to transform or analyze your data. Azure Data Factory
+supports three types of activities: data movement (copy activities), data
+transform (compute activities), and control activities.
+
+
+
+```json
+{
+	"name": "Activity Name",
+	"description": "description",
+	"type": "<ActivityType>",
+	"typeProperties": {},
+	"linkedServiceName": "MyLinkedService",
+	"policy": {},
+	"dependsOn": {}
+}
+
+```
+
+
+
+
+
 # Notes
 
 
@@ -250,6 +318,12 @@ curl 'http://localhost:8080/nifi-api/process-groups/cc6f6e50-0168-1000-0261-75ad
 Process group dimensions: 380x172
 
 
+
+#### Instantiate Template
+
+```bash
+curl 'http://localhost:8080/nifi-api/process-groups/cc6f6e50-0168-1000-0261-75adc2c330e5/template-instance' -H 'Origin: http://localhost:8080' -H 'Accept-Encoding: gzip, deflate, br' -H 'Accept-Language: en-US,en;q=0.9,bg-BG;q=0.8,bg;q=0.7' -H 'User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36' -H 'Content-Type: application/json' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://localhost:8080/nifi/?processGroupId=root&componentIds=cd31d940-0168-1000-9c7b-23e48c5faa98' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data-binary '{"templateId":"36c4467c-beba-4889-934a-cde8cbb685d8","originX":624.5930803885201,"originY":758.2501988620891,"disconnectedNodeAcknowledged":false}' --compressed
+```
 
 
 
