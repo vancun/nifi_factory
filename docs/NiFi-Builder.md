@@ -76,6 +76,10 @@ Below is presented a sample pipeline descriptor for fetching files from a `sourc
 * Automatic connection discovery ( `out` --> `in`) between steps.
 * Parameters could be defined
   * String formatting (template replacement) for variable string expressions (See https://docs.python.org/3.4/library/string.html#format-string-syntax on Python string formatting)
+* Specify the NiFi address from command line.
+  * If NiFi address is not specified, use http://localhost:8080 as default
+* Automatically layout data pipelines to avoid overlapping.
+  * Replaced pipeline origin is preserved.
 
 ## Stories Backlog
 
