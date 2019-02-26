@@ -91,13 +91,14 @@ Below is presented a sample pipeline descriptor for fetching files from a `sourc
    * As data acquisition manager I need to be able to specify properties for processors inside steps so that sensitive properties can be set.
 4. Define pipeline outbound/inbound connections (from/to external pipelines/processors) (+)
    - As data acquisition manager I need to be able to specify inbound and outbound connections for the pipeline so that it can receive data or send data to other pipelines.
-5. Passing parameters for expression formatting from command line - for reuse of parameters across pipelines. (-)
-6. Passing parameters for expression formatting from .properties file - for reuse of parameters across pipelines. (-)
-7. Apply processor property update, specified in the template - to link variables with the processor instances. This would allow for sensitive property values to be automatically restored, instead of specifying in update processor properties. Would remove the need for specifying internal workings of templates in the descriptor. (-)
-8. Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
-9. Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
-10. Instantiate pipeline steps from NiFi Registry (-)
-11. Commit pipeline to NiFi Registry (-)
+5. Ability to upload templates.
+6. Passing parameters for expression formatting from command line - for reuse of parameters across pipelines. (-)
+7. Passing parameters for expression formatting from .properties file - for reuse of parameters across pipelines. (-)
+8. Apply processor property update, specified in the template - to link variables with the processor instances. This would allow for sensitive property values to be automatically restored, instead of specifying in update processor properties. Would remove the need for specifying internal workings of templates in the descriptor. (-)
+9. Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
+10. Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
+11. Instantiate pipeline steps from NiFi Registry (-)
+12. Commit pipeline to NiFi Registry (-)
 
 ## Starting the NiFi Builder
 

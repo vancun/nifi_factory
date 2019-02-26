@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description></description>
+    <groupId>cc6f6e50-0168-1000-0261-75adc2c330e5</groupId>
+    <name>sdp_tpl_UnzipFiles</name>
+    <snippet>
+        <processGroups>
+            <id>702d8813-990b-3339-0000-000000000000</id>
+            <parentGroupId>ad741441-dd59-3bbd-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <comments></comments>
+            <contents>
+                <connections>
+                    <id>35f7fd7d-067b-33c1-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>f674ad34-b27d-3e14-0000-000000000000</id>
+                        <type>OUTPUT_PORT</type>
+                    </destination>
+                    <flowFileExpiration>7 days</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>failure</selectedRelationships>
+                    <source>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>fabfe076-aaed-3792-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>6b34a4e3-82e0-3b89-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>676caecd-41b3-34ce-0000-000000000000</id>
+                        <type>OUTPUT_PORT</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>fabfe076-aaed-3792-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>af126622-6ecb-3c65-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>fabfe076-aaed-3792-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <source>
+                        <groupId>702d8813-990b-3339-0000-000000000000</groupId>
+                        <id>d70bbfe7-7e66-30d9-0000-000000000000</id>
+                        <type>INPUT_PORT</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <inputPorts>
+                    <id>d70bbfe7-7e66-30d9-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>386.00000715894294</x>
+                        <y>307.00003110456646</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>in</name>
+                    <state>STOPPED</state>
+                    <type>INPUT_PORT</type>
+                </inputPorts>
+                <outputPorts>
+                    <id>676caecd-41b3-34ce-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1355.000007158943</x>
+                        <y>301.00003110456646</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>out</name>
+                    <state>STOPPED</state>
+                    <type>OUTPUT_PORT</type>
+                    <validationErrors>'Port 'out'' is invalid because Output connection for port 'out' is not defined.</validationErrors>
+                </outputPorts>
+                <outputPorts>
+                    <id>f674ad34-b27d-3e14-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>1352.000007158943</x>
+                        <y>463.00003110456646</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>failure</name>
+                    <state>STOPPED</state>
+                    <type>OUTPUT_PORT</type>
+                    <validationErrors>'Port 'failure'' is invalid because Output connection for port 'failure' is not defined.</validationErrors>
+                </outputPorts>
+                <processors>
+                    <id>fabfe076-aaed-3792-0000-000000000000</id>
+                    <parentGroupId>702d8813-990b-3339-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>821.0000071589429</x>
+                        <y>272.00003110456646</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-standard-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.8.0</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Packaging Format</key>
+<value>
+    <name>Packaging Format</name>
+</value>
+                            </entry>
+                            <entry>
+<key>File Filter</key>
+<value>
+    <name>File Filter</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Packaging Format</key>
+<value>zip</value>
+                            </entry>
+                            <entry>
+<key>File Filter</key>
+<value>.*</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>UnzipFiles</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>failure</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>true</autoTerminate>
+                        <name>original</name>
+                    </relationships>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.standard.UnpackContent</type>
+                </processors>
+            </contents>
+            <name>sdp_tpl_UnzipFiles</name>
+            <variables/>
+        </processGroups>
+    </snippet>
+    <timestamp>02/25/2019 15:12:30 CET</timestamp>
+</template>
