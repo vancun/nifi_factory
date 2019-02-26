@@ -77,19 +77,23 @@ Below is presented a sample pipeline descriptor for fetching files from a `sourc
 * Parameters could be defined
   * String formatting (template replacement) for variable string expressions (See https://docs.python.org/3.4/library/string.html#format-string-syntax on Python string formatting)
 
-## Not-implemented
+## Stories Backlog
 
-* Passing parameters for expression formatting from command line - for reuse of parameters across pipelines.
-* Passing parameters for expression formatting from .properties file - for reuse of parameters across pipelines.
-* Define variables on Pipeline level  - useful to inherit variables from Pipeline level or global. (+)
-* Remove variables from steps - useful to inherit variables from Pipeline level or global. (+)
-* Update processor properties - useful for sensitive properties which are removed during template instantiation. Useful for fine-tuning of pipelines. (+)
-  * Apply property update, specified in the template - to link variables with the processor instances.
-* Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
-* Define pipeline outbound/inbound connections (from/to external pipelines/processors) (+)
-* Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
-* Instantiate steps from NiFi Registry (-)
-* Commit to NiFi Registry (-)
+1. Define variables on Pipeline level  - useful to inherit variables from Pipeline level or global. (+)
+   * As data acquisition manager I need a capability to specify variables for the pipeline process group so that these variables could be used by steps.
+2. Remove variables from steps - useful to inherit variables from Pipeline level or global. (+)
+   * As data acquisition manager I need a capability to specify certain variables to be removed from a step so that these variables could be taken from the outer scope.
+3. Update processor properties - useful for sensitive properties which are removed during template instantiation. Useful for fine-tuning of pipelines. (+)
+   * As data acquisition manager I need to be able to specify properties for processors inside steps so that sensitive properties can be set.
+4. Define pipeline outbound/inbound connections (from/to external pipelines/processors) (+)
+   - As data acquisition manager I need to be able to specify inbound and outbound connections for the pipeline so that it can receive data or send data to other pipelines.
+5. Passing parameters for expression formatting from command line - for reuse of parameters across pipelines. (-)
+6. Passing parameters for expression formatting from .properties file - for reuse of parameters across pipelines. (-)
+7. Apply processor property update, specified in the template - to link variables with the processor instances. This would allow for sensitive property values to be automatically restored, instead of specifying in update processor properties. Would remove the need for specifying internal workings of templates in the descriptor. (-)
+8. Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
+9. Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
+10. Instantiate pipeline steps from NiFi Registry (-)
+11. Commit pipeline to NiFi Registry (-)
 
 ## Starting the NiFi Builder
 
