@@ -1,12 +1,12 @@
 
-__all__ = [ 'NiFiProcessGroup' ]
+__all__ = ['NiFiProcessGroup']
 
 """Contains defintions for classes which wrap flow object results from NiFi REST calls."""
+
 
 class NiFiPort:
     def __init__(self, nifi_def):
         self._nifi_def = nifi_def
-
 
     @property
     def id(self):
@@ -24,8 +24,10 @@ class NiFiPort:
 class NiFiInputPort(NiFiPort):
     pass
 
+
 class NiFiOutputPort(NiFiPort):
     pass
+
 
 class NiFiProcessGroup:
     def __init__(self, nifi_def):
@@ -38,7 +40,6 @@ class NiFiProcessGroup:
     @property
     def name(self):
         return self._nifi_def['component']['name']
-
 
 
 class NiFiProcessGroupFlow:
@@ -73,7 +74,7 @@ class NiFiProcessGroupFlow:
                 outports.append(NiFiInputPort(p))
             self._outports = outports
         return self._outports
-            
+
     def get_inport(self, name):
         for p in self.inports:
             if p.name == name:

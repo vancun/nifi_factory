@@ -11,8 +11,8 @@ __version__ = '0.0.1'
 # https://github.com/Azure-Samples/active-directory-python-webapp-graphapi/blob/master/app.py
 # https://github.com/pallets/jinja
 
-__all__ = [ 
+__all__ = [
     'NiFiClient',
     'NiFiProcessGroup', 'NiFiProcessGroupFlow',
     'DataPipelineFactory'
-    ]
+]

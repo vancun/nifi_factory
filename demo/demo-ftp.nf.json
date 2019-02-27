@@ -8,7 +8,7 @@
         "sdp_output_dir": "C:\\Sandbox\\notebooks\\repo\\nifi_factory\\data\\landing.ftp"
     },
     "properties": {
-        "AcquireLocal/ListFile/Input Directory":"{sdp_input_dir}"
+        "AcquireLocal/ListFile/Input Directory": "{sdp_input_dir}"
     },
     "pipeline": {
         "steps": [

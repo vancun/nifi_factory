@@ -18,16 +18,18 @@ class VancunNiFiShell(cmd.Cmd):
         super().preloop()
         nifi = NiFiClient(self.nifi_url)
         self.nifi = nifi
-        print("Connected to '{nifi}' as '{user}'. Client ID: '{id}'.".format(nifi=nifi.base_url, id=nifi.client_id, user=nifi.current_user['identity']))
+        print("Connected to '{nifi}' as '{user}'. Client ID: '{id}'.".format(
+            nifi=nifi.base_url, id=nifi.client_id, user=nifi.current_user['identity']))
         print("Type '?' or 'help' for help, 'bye' to exit.")
 
-
     def var_dumps(self, var, options={}):
-        var = self.apply_path(options.get('path',''),var,options.get('root',None))
-        if (type(var) is dict and options.get('dump','') == 'keys'):
+        var = self.apply_path(options.get('path', ''),
+                              var, options.get('root', None))
+        if (type(var) is dict and options.get('dump', '') == 'keys'):
             return ', '.join(var.keys())
         if (type(var) is list or type(var) is dict):
-            json_options = {k[5:]:(int(options[k]) if options[k].isnumeric() else options[k]) for k in options if k[:5] == 'json-'}
+            json_options = {k[5:]: (int(options[k]) if options[k].isnumeric(
+            ) else options[k]) for k in options if k[:5] == 'json-'}
             return json.dumps(var, **json_options)
         else:
             return var
@@ -45,10 +47,10 @@ class VancunNiFiShell(cmd.Cmd):
         if ('noprint' not in options):
             print(str)
 
-    def parse_arg(self, arg, defaults={}, arg_key='') :
-        result = {k:defaults[k] for k in defaults}
+    def parse_arg(self, arg, defaults={}, arg_key=''):
+        result = {k: defaults[k] for k in defaults}
         for option_string in arg.split(' '):
-            *key,value = option_string.split('=',2)
+            *key, value = option_string.split('=', 2)
             if (key):
                 str_key = key[0]
             else:
@@ -72,7 +74,8 @@ class VancunNiFiShell(cmd.Cmd):
                 elif (type(result) is dict):
                     result = len(result.keys())
                 break
-            result = result[int(node_key) if node_key.isnumeric() else node_key]
+            result = result[int(node_key)
+                            if node_key.isnumeric() else node_key]
         return result
 
     def info_user(self, options):
@@ -90,7 +93,8 @@ class VancunNiFiShell(cmd.Cmd):
 
     def info_var(self, options):
         if ('name' not in options):
-            raise NameError('Variable not specified. Use "info var name=<var-name>".')
+            raise NameError(
+                'Variable not specified. Use "info var name=<var-name>".')
         var_name = options.get('name')
         if (not var_name in self.__vars):
             raise NameError('Variable {} not found.'.format(var_name))
@@ -99,7 +103,7 @@ class VancunNiFiShell(cmd.Cmd):
     def do_info(self, arg):
         """Get NiFi information.
            Syntax: info {user|client_id|root_id|base_url}"""
-        
+
         try:
             options = self.parse_arg(arg, arg_key='what')
             method = "info_" + options['what']
@@ -108,6 +112,19 @@ class VancunNiFiShell(cmd.Cmd):
                 print("'{}' is not a valid attribute.".format(arg))
             else:
                 self.handle_result(method_ref(options), options)
+        except Exception as ex:
+            print("ERROR: {}".format(ex))
+
+    def do_get_pg_vars(self, arg):
+        """Get process group variable registry.
+
+           Syntax: get_pg_vars [id=]<process-group-id>
+        """
+        try:
+            options = self.parse_arg(arg, arg_key='id')
+            group_id = options.get('id')
+            pg = self.nifi.get_pg_vars(group_id)
+            self.handle_result(pg, options)
         except Exception as ex:
             print("ERROR: {}".format(ex))
 
@@ -129,7 +146,7 @@ class VancunNiFiShell(cmd.Cmd):
 
     def do_get_p(self, arg):
         """Get processor
-        
+
            Syntax: get_p [id=]<processor-id>
            Defaults: root=processGroupFlow
         """
@@ -140,7 +157,7 @@ class VancunNiFiShell(cmd.Cmd):
         except Exception as ex:
             print("ERROR: {}".format(ex))
 
-    def do_get_templates(self, arg): 
+    def do_get_templates(self, arg):
         """Get a list of templates.
         """
         try:
@@ -151,7 +168,7 @@ class VancunNiFiShell(cmd.Cmd):
 
     def do_search(self, arg):
         """Performs search against this NiFi, using the query.
-        
+
            Syntax: search [query=]<search-query>
            Defaults: root=searchResultsDTO"""
 
@@ -185,6 +202,7 @@ class VancunNiFiShell(cmd.Cmd):
 def cli():
     pass
 
+
 @cli.command()
 @click.argument('nifi_url', default='http://localhost:8080')
 def shell(nifi_url):
@@ -192,6 +210,7 @@ def shell(nifi_url):
 
     nifi = VancunNiFiShell(nifi_url)
     nifi.cmdloop()
+
 
 if (__name__ == "__main__"):
     cli()

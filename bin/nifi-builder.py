@@ -60,6 +60,10 @@ class NiFiBuilder:
         self._params.update(params)
         self._connect()
 
+    @property
+    def options(self):
+        return self._params
+
     def _connect(self):
         self._nifi = NiFiClient(self._params['nifi_url'])
 
@@ -72,11 +76,12 @@ class NiFiBuilder:
         flow = pg['processGroupFlow']['flow']
         positions = []
         for entity in ('processGroups', 'remoteProcessGroups', 'processors', 'inputPorts', 'outputPorts', 'funnels'):
-            print(entity)
             positions.extend(item['position'] for item in flow[entity])
-        x = min(positions, key=lambda pos: pos['x'])['x']
-        y = max(positions, key=lambda pos: pos['y'])['y']
-        return (x, y + self._params['v_space'])
+        if positions:
+            x = min(positions, key=lambda pos: pos['x'])['x']
+            y = max(positions, key=lambda pos: pos['y'])['y']
+            y += self._params['v_space']
+        return (x, y)
 
     def _find_root_pg_by_name(self, name):
         """Search for a process group at root level by name.
@@ -99,10 +104,13 @@ class NiFiBuilder:
     def _create_or_replace_pipeline_pg(self, ctx):
         """Ensure root process group for the pipeline exists."""
         pg = self._find_root_pg_by_name(ctx.pipeline.name)
+        if (pg and not self.options['overwrite']):
+            raise Exception(
+                "Pipeline process group {} already exists. Consider --overwrite option.".format(ctx.pipeline.name))
         if (pg):
             pos_x = pg['component']['position']['x']
             pos_y = pg['component']['position']['y']
-            #ctx.pipeline_pg = pg
+            # ctx.pipeline_pg = pg
             # return
             self._nifi.delete_process_group(
                 pg['id'], pg['revision']['version'])
@@ -117,18 +125,13 @@ class NiFiBuilder:
                 ctx.pipeline_pg.id, comments=ctx.pipeline.description)
         ctx.log.debug('Created pg {id}'.format(id=ctx.pipeline_pg.id))
 
-    def _update_pg_vars(self, pg_id, vars, ctx):
-        # Get current vars
-        current_vars = ctx.nifi.get_pg_vars(pg_id)
+    def _update_pg_vars(self, pg_id, var_spec, ctx):
         new_vars = {}
-        for v in current_vars['variableRegistry']['variables']:
-            new_vars[v['variable']['name']] = v['variable']['value']
-        for v in vars:
-            if vars[v] is None:
-                if v in new_vars:
-                    new_vars.pop(v)
-                continue
-            new_vars[v] = vars[v].format_map(ctx.pipeline.parameters)
+        for v in var_spec:
+            new_vars[v] = None if (var_spec[v] is None) else var_spec[v].format_map(
+                ctx.pipeline.parameters)
+        ctx.log.debug(
+            "Update variables for {} with {}".format(pg_id, new_vars))
         ctx.nifi.update_pg_vars(pg_id, new_vars)
 
     def _add_steps(self, ctx):
@@ -178,6 +181,7 @@ class NiFiBuilder:
     def build(self, pipeline_def):
         ctx = NiFiBuildContext(self._nifi, pipeline_def)
         self._create_or_replace_pipeline_pg(ctx)
+        self._update_pg_vars(ctx.pipeline_pg.id, pipeline_def.variables, ctx)
         self._add_steps(ctx)
         self._add_connections(ctx)
 
@@ -201,6 +205,9 @@ if (__name__ == "__main__"):
     with open(args.filename) as pipeline_file:
         # pipeline = DataPipeline.from_descriptor(json.load(pipeline_file))
         pipeline = DataPipelineFactory.from_json_file_descriptor(pipeline_file)
-
-    builder = NiFiBuilder(args.__dict__)
-    builder.build(pipeline)
+    try:
+        builder = NiFiBuilder(args.__dict__)
+        builder.build(pipeline)
+    except Exception as ex:
+        print("ERROR: {}".format(ex), file=sys.stderr)
+        # logging.exception(ex)

@@ -2,11 +2,16 @@
     "name": "Demo CSV Ingest",
     "description": "Ingest CSV file from local filesystem.",
     "parameters": {
-        "sdp_input_dir": "C:\\Sandbox\\notebooks\\repo\\nifi_factory\\data\\source",
-        "sdp_output_dir": "C:\\Sandbox\\notebooks\\repo\\nifi_factory\\data\\landing"
+        "sdp_input_dir": "C:\\demo\\source",
+        "sdp_output_dir": "C:\\demo\\landing\\inbox",
+        "sdp_archive_dir": "C:\\demo\\landing\\archive"
+    },
+    "variables": {
+        "sdp_input_dir": "{sdp_input_dir}",
+        "sdp_output_dir": "{sdp_output_dir}"
     },
     "properties": {
-        "AcquireLocal/ListFile/Input Directory":"{sdp_input_dir}"
+        "AcquireLocal/ListFile/Recurse Subdirectories": "false"
     },
     "pipeline": {
         "steps": [
@@ -15,19 +20,19 @@
                 "type": "sdp_tpl_AcquireLocalFiles",
                 "description": "Acquire files from local directory",
                 "variables": {
-                    "sdp_input_dir": "{sdp_input_dir}"
+                    "sdp_input_dir": null
                 }
             },
             {
                 "name": "UnzipFiles",
                 "type": "sdp_tpl_UnzipFiles",
-                "description": "Unzip file"
+                "description": "Acquire files from local directory"
             },
             {
                 "name": "StoreLocal",
                 "type": "sdp_tpl_PutLocalFiles",
                 "variables": {
-                    "sdp_output_dir": "{sdp_output_dir}"
+                    "sdp_output_dir": null
                 }
             }
         ]
