@@ -1,0 +1,35 @@
+{
+    "name": "Demo EoS Ingest",
+    "description": "Ingest EoS Messages file from local filesystem.",
+    "parameters": {
+        "KafkaBroker": "localhost:4020",
+        "KafkaTopic": "eos_source_topic",
+        "KafkaGroupId": "sdpgateway"
+    },
+    "variables": {
+        "KafkaBroker": "{KafkaBroker}",
+        "KafkaTopic": "{KafkaTopic}",
+        "KafkaGroupId": "{KafkaGroupId}"
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "AcquireEosFromKafka",
+                "type": "sdp_tpl_AcquireKafka",
+                "description": "Acquire EoS messages from ODH Kafka.",
+                "variables": {
+                    "KafkaBroker": null,
+                    "KafkaTopic": null,
+                    "KafkaGroupId": null
+                }
+            },
+            {
+                "name": "StoreEosMessages",
+                "type": "sdp_tpl_PutLocalFiles",
+                "variables": {
+                    "sdp_output_dir": null
+                }
+            }
+        ]
+    }
+}
