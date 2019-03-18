@@ -55,6 +55,8 @@ class DataPipelineFactory:
             pipeline._params = dict(descriptor['parameters'])
         if 'variables' in descriptor:
             pipeline._vars = dict(descriptor['variables'])
+        if 'properties' in descriptor:
+            pipeline._props = dict(descriptor['properties'])
         pipeline_descriptor = descriptor['pipeline']
         step_descriptors = pipeline_descriptor['steps']
         for step in step_descriptors:
@@ -118,6 +120,7 @@ class DataPipeline:
         self._steps = []
         self._params = {}
         self._vars = {}
+        self._props = {}
 
     def __repr__(self):
         return (self.as_json)
@@ -125,6 +128,10 @@ class DataPipeline:
     @property
     def variables(self):
         return self._vars
+
+    @property
+    def properties(self):
+        return self._props
 
     @property
     def steps(self):
@@ -154,6 +161,8 @@ class DataPipeline:
             'variables': dict(self._vars),
             'steps': list()
         }
+        if self._props:
+            descriptor['properties'] = dict(self._props)
         if self._description is not None:
             descriptor['description'] = self._description
         for step in self._steps:

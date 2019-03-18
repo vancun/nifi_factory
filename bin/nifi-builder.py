@@ -100,6 +100,44 @@ class NiFiBuilder:
             return results[0]
         else:
             return None
+		
+
+    def _find_child_pg_by_name(self, name, parent_id=None):
+        if parent_id is None:
+            parent_id = self._nifi.root_id
+        parent_group = self._nifi.get_process_group(parent_id)
+        pg_list = parent_group['processGroupFlow']['flow']['processGroups']
+        results = list(
+            filter(lambda pg: pg['component']['name'] == name, pg_list))
+        if len(results) > 1:
+            raise Exception(
+                "Multiple ({}) process groups named {} exist.".format(len(results), name))
+        elif len(results) == 1:
+            return results[0]
+        else:
+            return None
+            
+    def _find_processor_by_path(self, path):
+        """Find and return processor info by path"""
+        parent_id = self._nifi.root_id
+        path_elements = path.split('/')
+        for pg_name in path_elements[:-1]:
+            pg = self._find_child_pg_by_name(pg_name, parent_id)
+            if not pg:
+                raise Exception("Process group {} not found in path {}.".format(pag_name, path))
+            pg_id = pg['id']
+            print("Search for: {}. Found: {}".format(pg_name, pg_id))
+            parent_id = pg_id
+        pg = self._nifi.get_process_group(parent_id)
+        processor_list = pg['processGroupFlow']['flow']['processors']
+        processor_name = path_elements[-1]
+        results = list(
+            filter(lambda pg: pg['component']['name'] == processor_name, processor_list))
+        if not results:
+            raise Exception('Processor {} not found in path: {}'.format(processor_name, path))
+        elif len(results) > 1:
+            raise Exception('Multiple processors {} found in path: {}'.format(processor_name, path))
+        return results[0]
 
     def _create_or_replace_pipeline_pg(self, ctx):
         """Ensure root process group for the pipeline exists."""
@@ -177,6 +215,18 @@ class NiFiBuilder:
             dest_port = this_step.get_inport('in')
             self._add_connection(ctx, src_port, dest_port)
             prev_step = this_step
+			
+    def _update_properties(self, ctx):
+        for path, props in ctx.pipeline.properties.items():
+            processor = self._find_processor_by_path(path)
+            proc_id = processor['component']['id']
+            proc_version = processor['revision']['version']
+            new_props = {}
+            for n,v in props.items():
+                new_props[n] = None if (v is None) else v.format_map(
+                    ctx.pipeline.parameters)
+            self._nifi.update_processor_properties(proc_id, new_props, proc_version)
+        # print(ctx.pipeline.properties)
 
     def build(self, pipeline_def):
         ctx = NiFiBuildContext(self._nifi, pipeline_def)
@@ -184,6 +234,7 @@ class NiFiBuilder:
         self._update_pg_vars(ctx.pipeline_pg.id, pipeline_def.variables, ctx)
         self._add_steps(ctx)
         self._add_connections(ctx)
+        self._update_properties(ctx)
 
 
 def parse_args(args=None):

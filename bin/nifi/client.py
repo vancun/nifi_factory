@@ -226,3 +226,27 @@ class NiFiClient:
             print(response)
             raise Exception("Unable to update vars for {}.".format(id))
         return response.json()
+
+    def update_processor_properties(self, id, props, version=None):
+        end_point = "{base}processors/{id}".format(
+            base=self.__base_url, id=id)
+        params = {
+            "component":{
+                "id":id,
+                "config":{
+                    "properties":props
+                }
+            },
+            "revision":{
+                "clientId":self.client_id,
+                "version":version
+            },
+            "disconnectedNodeAcknowledged": False
+        }
+        response = requests.put(end_point, json=params)
+        if (response.status_code != 200):
+            print(response)
+            raise Exception("Unable to update vars for {}.".format(id))
+        return response.json()
+        
+        
