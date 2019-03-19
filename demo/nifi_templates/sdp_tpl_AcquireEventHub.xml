@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description></description>
+    <groupId>91499448-0169-1000-8f49-ba0c881da4d6</groupId>
+    <name>sdp_tpl_AcquireEventHub</name>
+    <snippet>
+        <processGroups>
+            <id>8b258c5e-64dd-39d7-0000-000000000000</id>
+            <parentGroupId>76f8ed6c-3ee1-3398-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <comments></comments>
+            <contents>
+                <connections>
+                    <id>add65430-1aae-3b54-0000-000000000000</id>
+                    <parentGroupId>8b258c5e-64dd-39d7-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>8b258c5e-64dd-39d7-0000-000000000000</groupId>
+                        <id>27e4d37f-7f78-3c5c-0000-000000000000</id>
+                        <type>OUTPUT_PORT</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>8b258c5e-64dd-39d7-0000-000000000000</groupId>
+                        <id>1c0c4389-8d7e-3734-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <outputPorts>
+                    <id>27e4d37f-7f78-3c5c-0000-000000000000</id>
+                    <parentGroupId>8b258c5e-64dd-39d7-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>418.0000040099112</x>
+                        <y>488.0000088329343</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>out</name>
+                    <state>STOPPED</state>
+                    <type>OUTPUT_PORT</type>
+                </outputPorts>
+                <processors>
+                    <id>1c0c4389-8d7e-3734-0000-000000000000</id>
+                    <parentGroupId>8b258c5e-64dd-39d7-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>360.8144203600749</x>
+                        <y>243.49071357310652</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-azure-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.8.0.3.3.0.0-165</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Event Hub Name</key>
+<value>
+    <name>Event Hub Name</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Service Bus Endpoint</key>
+<value>
+    <name>Service Bus Endpoint</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Namespace</key>
+<value>
+    <name>Event Hub Namespace</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Shared Access Policy Name</key>
+<value>
+    <name>Shared Access Policy Name</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Shared Access Policy Primary Key</key>
+<value>
+    <name>Shared Access Policy Primary Key</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Number of Event Hub Partitions</key>
+<value>
+    <name>Number of Event Hub Partitions</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Consumer Group</key>
+<value>
+    <name>Event Hub Consumer Group</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Message Enqueue Time</key>
+<value>
+    <name>Event Hub Message Enqueue Time</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Partition Recivier Fetch Size</key>
+<value>
+    <name>Partition Recivier Fetch Size</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Partiton Receiver Timeout (millseconds)</key>
+<value>
+    <name>Partiton Receiver Timeout (millseconds)</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Event Hub Name</key>
+<value>${sdp_event_hub_name}</value>
+                            </entry>
+                            <entry>
+<key>Service Bus Endpoint</key>
+<value>.servicebus.windows.net</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Namespace</key>
+<value>${sdp_event_hub_namespace}</value>
+                            </entry>
+                            <entry>
+<key>Shared Access Policy Name</key>
+<value>${sdp_event_hub_access_policy_name}</value>
+                            </entry>
+                            <entry>
+<key>Shared Access Policy Primary Key</key>
+                            </entry>
+                            <entry>
+<key>Number of Event Hub Partitions</key>
+<value>2</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Consumer Group</key>
+<value>$Default</value>
+                            </entry>
+                            <entry>
+<key>Event Hub Message Enqueue Time</key>
+                            </entry>
+                            <entry>
+<key>Partition Recivier Fetch Size</key>
+                            </entry>
+                            <entry>
+<key>Partiton Receiver Timeout (millseconds)</key>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>GetAzureEventHub</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.azure.eventhub.GetAzureEventHub</type>
+                </processors>
+            </contents>
+            <name>sdp_tpl_AcquireEventHub</name>
+            <variables>
+                <entry>
+                    <key>sdp_event_hub_name</key>
+                    <value>nyc-taxi</value>
+                </entry>
+                <entry>
+                    <key>dir_input</key>
+                    <value>/tmp/demo/staged</value>
+                </entry>
+            </variables>
+        </processGroups>
+    </snippet>
+    <timestamp>03/18/2019 15:14:13 UTC</timestamp>
+</template>

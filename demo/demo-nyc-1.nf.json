@@ -1,0 +1,41 @@
+{
+    "name": "NYC Yelow Taxi",
+    "description": "Ingest NYC Taxi events.",
+    "properties": {
+		"NYC Yelow Taxi/Store/PutAzureBlobStorage": {
+			"storage-account-name": "{sdp_blob_storage_account}",
+			"storage-account-key": "{sdp_blob_storage_key}"
+		}
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "Acquire",
+                "type": "sdp_tpl_AcquireFiles",
+                "variables": {
+                    "dir_input": "/home/nifi/demo/data/nyc/staged"
+                }
+            },
+            {
+                "name": "Tag Files",
+                "type": "sdp_tpl_Manage_TagFlowFiles",
+                "variables": {
+					"sdp_source_system": "NYC_STG",
+					"sdp_source_stream": "YELLOW"
+				}
+            },
+            {
+                "name": "Unzip",
+                "type": "sdp_tpl_Manage_Unzip"
+            },
+            {
+                "name": "Store",
+                "type": "sdp_tpl_StoreAzureBlob",
+                "variables": {
+					"sdp_dir_root": "{sdp_dir_root}",
+					"sdp_blob_storage_container": "{sdp_blob_storage_container}"
+				}
+            }
+        ]
+    }
+}

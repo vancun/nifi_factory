@@ -1,0 +1,53 @@
+{
+    "name": "NYC Yelow Taxi",
+    "description": "Ingest NYC Taxi events.",
+    "properties": {
+		"NYC Yelow Taxi/Acquire/GetAzureEventHub": {
+			"Event Hub Namespace": "{sdp_event_hub_namespace}",
+            "Event Hub Name": "nyc-taxi",
+			"Shared Access Policy Name": "{sdp_event_hub_access_policy_name}",
+			"Shared Access Policy Primary Key": "{sdp_event_hub_access_policy_key}",
+            "Number of Event Hub Partitions":"2"
+		},
+		"NYC Yelow Taxi/Store/PutAzureBlobStorage": {
+			"storage-account-name": "${{sdp_blob_storage_account}}",
+			"storage-account-key": "${{sdp_blob_storage_key}}"
+		}
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "Acquire",
+                "type": "sdp_tpl_AcquireEventHub",
+                "description": "Acquire files from staging"
+            },
+            {
+                "name": "Tag Files",
+                "type": "sdp_tpl_Manage_TagFlowFiles",
+                "variables": {
+					"sdp_source_system": "NYC_HUB",
+					"sdp_source_stream": "YELLOW"
+				}
+            },
+            {
+                "name": "Anonymize",
+                "type": "sdp_tpl_Manage_AnonymizeCSV",
+                "variables": {
+					"sdp_column_list": "1"
+				}
+            },
+            {
+                "name": "Merge Small Files",
+                "type": "sdp_tpl_Manage_Merge"
+            },
+            {
+                "name": "Store",
+                "type": "sdp_tpl_StoreAzureBlob",
+                "variables": {
+					"sdp_dir_root": "{sdp_dir_root}",
+					"sdp_blob_storage_container": "{sdp_blob_storage_container}"
+				}
+            }
+        ]
+    }
+}

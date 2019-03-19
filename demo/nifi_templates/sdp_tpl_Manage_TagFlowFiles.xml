@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description></description>
+    <groupId>90b0a1bb-0169-1000-616e-b0a284222cf0</groupId>
+    <name>sdp_tpl_Manage_TagFlowFiles</name>
+    <snippet>
+        <processGroups>
+            <id>3de35570-3034-3501-0000-000000000000</id>
+            <parentGroupId>af63e5fb-ffaf-3443-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <comments></comments>
+            <contents>
+                <connections>
+                    <id>4807e6a6-5877-3302-0000-000000000000</id>
+                    <parentGroupId>3de35570-3034-3501-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>3de35570-3034-3501-0000-000000000000</groupId>
+                        <id>c27a2f92-1197-3a48-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <source>
+                        <groupId>3de35570-3034-3501-0000-000000000000</groupId>
+                        <id>0f3c10dd-1679-3abb-0000-000000000000</id>
+                        <type>INPUT_PORT</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <connections>
+                    <id>e3da8bb8-b680-3276-0000-000000000000</id>
+                    <parentGroupId>3de35570-3034-3501-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>3de35570-3034-3501-0000-000000000000</groupId>
+                        <id>270a4de9-ca55-325d-0000-000000000000</id>
+                        <type>OUTPUT_PORT</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <selectedRelationships>success</selectedRelationships>
+                    <source>
+                        <groupId>3de35570-3034-3501-0000-000000000000</groupId>
+                        <id>c27a2f92-1197-3a48-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
+                <inputPorts>
+                    <id>0f3c10dd-1679-3abb-0000-000000000000</id>
+                    <parentGroupId>3de35570-3034-3501-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>424.9999963805167</x>
+                        <y>40.9999783153562</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>in</name>
+                    <state>STOPPED</state>
+                    <type>INPUT_PORT</type>
+                </inputPorts>
+                <outputPorts>
+                    <id>270a4de9-ca55-325d-0000-000000000000</id>
+                    <parentGroupId>3de35570-3034-3501-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>425.9999963805167</x>
+                        <y>357.9999783153562</y>
+                    </position>
+                    <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                    <name>out</name>
+                    <state>STOPPED</state>
+                    <type>OUTPUT_PORT</type>
+                </outputPorts>
+                <processors>
+                    <id>c27a2f92-1197-3a48-0000-000000000000</id>
+                    <parentGroupId>3de35570-3034-3501-0000-000000000000</parentGroupId>
+                    <position>
+                        <x>368.9999963805167</x>
+                        <y>164.9999783153562</y>
+                    </position>
+                    <bundle>
+                        <artifact>nifi-update-attribute-nar</artifact>
+                        <group>org.apache.nifi</group>
+                        <version>1.8.0.3.3.0.0-165</version>
+                    </bundle>
+                    <config>
+                        <bulletinLevel>WARN</bulletinLevel>
+                        <comments></comments>
+                        <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                        <descriptors>
+                            <entry>
+<key>Delete Attributes Expression</key>
+<value>
+    <name>Delete Attributes Expression</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Store State</key>
+<value>
+    <name>Store State</name>
+</value>
+                            </entry>
+                            <entry>
+<key>Stateful Variables Initial Value</key>
+<value>
+    <name>Stateful Variables Initial Value</name>
+</value>
+                            </entry>
+                            <entry>
+<key>sdp_source_stream</key>
+<value>
+    <name>sdp_source_stream</name>
+</value>
+                            </entry>
+                            <entry>
+<key>sdp_source_system</key>
+<value>
+    <name>sdp_source_system</name>
+</value>
+                            </entry>
+                        </descriptors>
+                        <executionNode>ALL</executionNode>
+                        <lossTolerant>false</lossTolerant>
+                        <penaltyDuration>30 sec</penaltyDuration>
+                        <properties>
+                            <entry>
+<key>Delete Attributes Expression</key>
+                            </entry>
+                            <entry>
+<key>Store State</key>
+<value>Do not store state</value>
+                            </entry>
+                            <entry>
+<key>Stateful Variables Initial Value</key>
+                            </entry>
+                            <entry>
+<key>sdp_source_stream</key>
+<value>${sdp_source_stream}</value>
+                            </entry>
+                            <entry>
+<key>sdp_source_system</key>
+<value>${sdp_source_system}</value>
+                            </entry>
+                        </properties>
+                        <runDurationMillis>0</runDurationMillis>
+                        <schedulingPeriod>0 sec</schedulingPeriod>
+                        <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                        <yieldDuration>1 sec</yieldDuration>
+                    </config>
+                    <executionNodeRestricted>false</executionNodeRestricted>
+                    <name>UpdateAttribute</name>
+                    <relationships>
+                        <autoTerminate>false</autoTerminate>
+                        <name>success</name>
+                    </relationships>
+                    <state>STOPPED</state>
+                    <style/>
+                    <type>org.apache.nifi.processors.attributes.UpdateAttribute</type>
+                </processors>
+            </contents>
+            <name>sdp_tpl_Manage_TagFlowFiles</name>
+            <variables>
+                <entry>
+                    <key>sdp_source_stream</key>
+                    <value>NYC_YELLOW</value>
+                </entry>
+                <entry>
+                    <key>sdp_source_system</key>
+                    <value>NYC_STG</value>
+                </entry>
+            </variables>
+        </processGroups>
+    </snippet>
+    <timestamp>03/18/2019 12:43:36 UTC</timestamp>
+</template>

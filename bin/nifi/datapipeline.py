@@ -11,9 +11,7 @@ class DataPipelineFactory:
         if 'name' not in descriptor:
             raise Exception("'name' not found in definition.")
 
-        if 'parameters' not in descriptor:
-            raise Exception("'parameters' not found in definition.")
-        if not isinstance(descriptor['parameters'], dict):
+        if 'parameters' in descriptor and not isinstance(descriptor['parameters'], dict):
             raise Exception("'parameters' should be dictionary.")
 
         if 'pipeline' not in descriptor:

@@ -1,0 +1,11 @@
+{
+    "parameters": {
+        "sdp_event_hub_namespace": "<AZURE EVENT HUB NAMESPACE>",
+        "sdp_event_hub_access_policy_name": "<AZURE EVENT HUB ACCESS POLICY NAME>",
+        "sdp_event_hub_access_policy_key": "<AZURE EVENT HUB ACCESS POLICY KEY>",
+        "sdp_blob_storage_account":"<AZURE STORAGE ACCOUNT NAME>",
+        "sdp_blob_storage_key":"<AZURE STORAGE ACCOUNT ACCESS KEY",
+        "sdp_blob_storage_container":"<AZURE BLOB STORAGE>",
+        "sdp_dir_root":"raw"
+    }
+}

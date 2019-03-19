@@ -1,0 +1,46 @@
+{
+    "name": "CH Incidents",
+    "properties": {
+		"CH Incidents/Store/PutAzureBlobStorage": {
+			"storage-account-name": "{sdp_blob_storage_account}",
+			"storage-account-key": "{sdp_blob_storage_key}"
+		}
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "Incidents Acquire",
+                "type": "sdp_tpl_AcquireFiles",
+                "description": "Acquire files from staging",
+                "variables": {
+                    "dir_input": "/home/nifi/demo/data/incidents"
+                }
+            },
+            {
+                "name": "Tag Files",
+                "type": "sdp_tpl_Manage_TagFlowFiles",
+                "variables": {
+					"sdp_source_system": "INCIDENTS",
+					"sdp_source_stream": "CH"
+				}
+            },
+            {
+                "name": "Incidents Anonymize",
+                "type": "sdp_tpl_Manage_AnonymizeCSV",
+                "variables": {
+					"sdp_column_list": "8",
+                    "sdp_delimiter_character":"\t",
+                    "sdp_has_header":"true"
+				}
+            },
+            {
+                "name": "Store",
+                "type": "sdp_tpl_StoreAzureBlob",
+                "variables": {
+					"sdp_dir_root": "{sdp_dir_root}",
+					"sdp_blob_storage_container": "{sdp_blob_storage_container}"
+				}
+            }
+        ]
+    }
+}

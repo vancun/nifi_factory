@@ -1,8 +1,9 @@
-# import json
+#! /usr/bin/python3
 import argparse
 from nifi import *
 import logging
 import sys
+import json
 
 
 class NiFiBuildContext:
@@ -124,7 +125,7 @@ class NiFiBuilder:
         for pg_name in path_elements[:-1]:
             pg = self._find_child_pg_by_name(pg_name, parent_id)
             if not pg:
-                raise Exception("Process group {} not found in path {}.".format(pag_name, path))
+                raise Exception("Process group {} not found in path {}.".format(pg_name, path))
             pg_id = pg['id']
             print("Search for: {}. Found: {}".format(pg_name, pg_id))
             parent_id = pg_id
@@ -228,7 +229,7 @@ class NiFiBuilder:
             self._nifi.update_processor_properties(proc_id, new_props, proc_version)
         # print(ctx.pipeline.properties)
 
-    def build(self, pipeline_def):
+    def build(self, pipeline_def, conf):
         ctx = NiFiBuildContext(self._nifi, pipeline_def)
         self._create_or_replace_pipeline_pg(ctx)
         self._update_pg_vars(ctx.pipeline_pg.id, pipeline_def.variables, ctx)
@@ -241,11 +242,41 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser(description='NiFi Flow Builder')
     parser.add_argument('-u', '--nifi-url', default='http://localhost:8080',
                         help='URL for the NiFi server. Default URL: http://localhost:8080')
+    parser.add_argument('-c', '--config-file', help='Additional json configuration file.')
     parser.add_argument('-o', '--overwrite', action='store_true',
                         help='Overwrite existing pipeline.')
+    parser.add_argument('--bind-port')
     # parser.add_argument('-p', '--properties', action='append', help='Properties file.')
     parser.add_argument('filename')
     return parser.parse_args(args)
+
+from flask import Flask, jsonify, request, send_from_directory, render_template, url_for
+http_app = Flask(__name__)
+
+def http_error(error=None):
+    message = {
+            'status': 500,
+            'message': error,
+    }
+    resp = jsonify(message)
+    resp.status_code = 500
+
+    return resp
+
+@http_app.route('/build', methods=['GET', 'POST'])
+def http_build():
+    try:
+        builder = NiFiBuilder(args.__dict__)
+        builder.build(pipeline, conf)
+        message = {
+            'status': 200,
+            'message': 'Build pipeline "{}" complete.'.format(pipeline.name)
+        }
+        resp = jsonify(message)
+        resp.status_code = 200
+        return resp
+    except Exception as ex:
+        return http_error(format(ex))
 
 
 if (__name__ == "__main__"):
@@ -256,9 +287,18 @@ if (__name__ == "__main__"):
     with open(args.filename) as pipeline_file:
         # pipeline = DataPipeline.from_descriptor(json.load(pipeline_file))
         pipeline = DataPipelineFactory.from_json_file_descriptor(pipeline_file)
-    try:
-        builder = NiFiBuilder(args.__dict__)
-        builder.build(pipeline)
-    except Exception as ex:
-        print("ERROR: {}".format(ex), file=sys.stderr)
-        # logging.exception(ex)
+
+    if args.config_file:
+        with open(args.config_file) as conf_file:
+            conf = json.load(conf_file)
+        pipeline.parameters.update(conf['parameters'])
+        
+    if args.bind_port:
+            http_app.run(debug=True, host='0.0.0.0', port=args.bind_port)
+    else:
+        try:
+            builder = NiFiBuilder(args.__dict__)
+            builder.build(pipeline, conf)
+        except Exception as ex:
+            print("ERROR: {}".format(ex), file=sys.stderr)
+            # logging.exception(ex)
