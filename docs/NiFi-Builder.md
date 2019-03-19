@@ -14,7 +14,7 @@ NiFi Builder provides a command line interface for building and updating NiFi da
 
 To build a NiFi pipeline the NiFi Builder reads a NiFi Pipeline Descriptor and executes it against the NiFi REST API.
 
-![NiFi-Builder-Drawings.drawio-NiFiBuilder](/img/NiFi-Builder-Drawings.drawio-NiFiBuilder.png)
+![NiFi-Builder-Drawings.drawio-NiFiBuilder](img/NiFi-Builder-Drawings.drawio-NiFiBuilder.png)
 
 The Pipeline Descriptor is a JSON document which describes the different steps of acquiring the data and parameters to be set. The steps are mapped to NiFi templates.
 
@@ -61,7 +61,7 @@ Below is presented a sample pipeline descriptor for fetching files from a `sourc
 
 ## Multi-target and Multi-Platform Generation Approach
 
-![NiFi-Builder-Drawings.drawio-IntegratedApproach](/img/NiFi-Builder-Drawings.drawio-IntegratedApproach.png)
+![NiFi-Builder-Drawings.drawio-IntegratedApproach](img/NiFi-Builder-Drawings.drawio-IntegratedApproach.png)
 
 ## Features
 
