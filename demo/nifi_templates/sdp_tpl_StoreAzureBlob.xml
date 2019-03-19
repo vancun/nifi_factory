@@ -198,7 +198,7 @@
                 </entry>
                 <entry>
                     <key>sdp_blob_storage_key</key>
-                    <value>u8V0yYfJ+9DTWxqG8H8bzrM5sh2DUPGg4/K0Ci068ML28R0IaYp5n2f/ksij9qBHllpmze5NEKu0JskBmFzaTg==</value>
+                    <value>AZURE_BLOB_STORAGE_KEY</value>
                 </entry>
             </variables>
         </processGroups>
