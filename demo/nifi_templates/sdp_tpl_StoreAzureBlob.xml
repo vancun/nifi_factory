@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <template encoding-version="1.2">
     <description></description>
-    <groupId>90b0a1bb-0169-1000-616e-b0a284222cf0</groupId>
+    <groupId>ee90884d-0166-1000-d0db-faaa816d1a4c</groupId>
     <name>sdp_tpl_StoreAzureBlob</name>
     <snippet>
         <processGroups>
-            <id>fd78886c-2841-38ad-0000-000000000000</id>
-            <parentGroupId>af63e5fb-ffaf-3443-0000-000000000000</parentGroupId>
+            <id>72142f2e-3c0e-3a25-0000-000000000000</id>
+            <parentGroupId>2943f803-50c4-3ed9-0000-000000000000</parentGroupId>
             <position>
                 <x>0.0</x>
                 <y>0.0</y>
@@ -14,32 +14,8 @@
             <comments></comments>
             <contents>
                 <connections>
-                    <id>048a72a0-a61c-3446-0000-000000000000</id>
-                    <parentGroupId>fd78886c-2841-38ad-0000-000000000000</parentGroupId>
-                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
-                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
-                    <destination>
-                        <groupId>fd78886c-2841-38ad-0000-000000000000</groupId>
-                        <id>4cbd15e3-d116-3154-0000-000000000000</id>
-                        <type>PROCESSOR</type>
-                    </destination>
-                    <flowFileExpiration>0 sec</flowFileExpiration>
-                    <labelIndex>1</labelIndex>
-                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
-                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
-                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
-                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
-                    <name></name>
-                    <source>
-                        <groupId>fd78886c-2841-38ad-0000-000000000000</groupId>
-                        <id>586496a9-db0e-31c7-0000-000000000000</id>
-                        <type>INPUT_PORT</type>
-                    </source>
-                    <zIndex>0</zIndex>
-                </connections>
-                <connections>
-                    <id>9e3fe4b6-0d68-39e8-0000-000000000000</id>
-                    <parentGroupId>fd78886c-2841-38ad-0000-000000000000</parentGroupId>
+                    <id>7d0542de-4274-3709-0000-000000000000</id>
+                    <parentGroupId>72142f2e-3c0e-3a25-0000-000000000000</parentGroupId>
                     <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
                     <backPressureObjectThreshold>10000</backPressureObjectThreshold>
                     <bends>
@@ -51,8 +27,8 @@
                         <y>295.0000088329343</y>
                     </bends>
                     <destination>
-                        <groupId>fd78886c-2841-38ad-0000-000000000000</groupId>
-                        <id>4cbd15e3-d116-3154-0000-000000000000</id>
+                        <groupId>72142f2e-3c0e-3a25-0000-000000000000</groupId>
+                        <id>a42d7f05-7f4d-3be5-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </destination>
                     <flowFileExpiration>0 sec</flowFileExpiration>
@@ -64,15 +40,39 @@
                     <name></name>
                     <selectedRelationships>failure</selectedRelationships>
                     <source>
-                        <groupId>fd78886c-2841-38ad-0000-000000000000</groupId>
-                        <id>4cbd15e3-d116-3154-0000-000000000000</id>
+                        <groupId>72142f2e-3c0e-3a25-0000-000000000000</groupId>
+                        <id>a42d7f05-7f4d-3be5-0000-000000000000</id>
                         <type>PROCESSOR</type>
                     </source>
                     <zIndex>0</zIndex>
                 </connections>
+                <connections>
+                    <id>efc35c1d-a3f3-3fac-0000-000000000000</id>
+                    <parentGroupId>72142f2e-3c0e-3a25-0000-000000000000</parentGroupId>
+                    <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+                    <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+                    <destination>
+                        <groupId>72142f2e-3c0e-3a25-0000-000000000000</groupId>
+                        <id>a42d7f05-7f4d-3be5-0000-000000000000</id>
+                        <type>PROCESSOR</type>
+                    </destination>
+                    <flowFileExpiration>0 sec</flowFileExpiration>
+                    <labelIndex>1</labelIndex>
+                    <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+                    <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+                    <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+                    <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+                    <name></name>
+                    <source>
+                        <groupId>72142f2e-3c0e-3a25-0000-000000000000</groupId>
+                        <id>0225d9d5-c541-3006-0000-000000000000</id>
+                        <type>INPUT_PORT</type>
+                    </source>
+                    <zIndex>0</zIndex>
+                </connections>
                 <inputPorts>
-                    <id>586496a9-db0e-31c7-0000-000000000000</id>
-                    <parentGroupId>fd78886c-2841-38ad-0000-000000000000</parentGroupId>
+                    <id>0225d9d5-c541-3006-0000-000000000000</id>
+                    <parentGroupId>72142f2e-3c0e-3a25-0000-000000000000</parentGroupId>
                     <position>
                         <x>484.0000040099112</x>
                         <y>62.00000883293433</y>
@@ -83,8 +83,8 @@
                     <type>INPUT_PORT</type>
                 </inputPorts>
                 <processors>
-                    <id>4cbd15e3-d116-3154-0000-000000000000</id>
-                    <parentGroupId>fd78886c-2841-38ad-0000-000000000000</parentGroupId>
+                    <id>a42d7f05-7f4d-3be5-0000-000000000000</id>
+                    <parentGroupId>72142f2e-3c0e-3a25-0000-000000000000</parentGroupId>
                     <position>
                         <x>428.0000040099112</x>
                         <y>205.00000883293433</y>
@@ -186,22 +186,14 @@
             <variables>
                 <entry>
                     <key>sdp_dir_root</key>
-                    <value>SDP/DEV/RAW</value>
+                    <value>RAW</value>
                 </entry>
                 <entry>
                     <key>sdp_blob_storage_container</key>
-                    <value>nyctaxi</value>
-                </entry>
-                <entry>
-                    <key>sdp_blob_storage_account</key>
-                    <value>dataworksdemodata</value>
-                </entry>
-                <entry>
-                    <key>sdp_blob_storage_key</key>
-                    <value>AZURE_BLOB_STORAGE_KEY</value>
+                    <value>&lt;STORAGE_CONTAINER&gt;</value>
                 </entry>
             </variables>
         </processGroups>
     </snippet>
-    <timestamp>03/18/2019 13:07:07 UTC</timestamp>
+    <timestamp>03/19/2019 10:39:05 UTC</timestamp>
 </template>
