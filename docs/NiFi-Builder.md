@@ -84,21 +84,25 @@ Below is presented a sample pipeline descriptor for fetching files from a `sourc
   - As data acquisition manager I need a capability to specify variables for the pipeline process group so that these variables could be used by steps.
 * Remove variables from steps - useful to inherit variables from Pipeline level or global. (+)
   - As data acquisition manager I need a capability to specify certain variables to be removed from a step so that these variables could be taken from the outer scope.
+* Parameters can be passed from a separate configuration file to enable environment specific configurations, e.g. sensitive properties.
+* Process properties could be updated to enable setting sensitive properties during flow generation.
+* NiFi Builder could be started as web service to build fixed pipeline to enable debugging.
 
 ## Stories Backlog
 
-1. Update processor properties - useful for sensitive properties which are removed during template instantiation. Useful for fine-tuning of pipelines. (+)
-   * As data acquisition manager I need to be able to specify properties for processors inside steps so that sensitive properties can be set.
-2. Define pipeline outbound/inbound connections (from/to external pipelines/processors) (+)
+1. Define root process group where to place the generated pipeline to enable more manageable and structured stream organization.
+2. Full featured REST service which could be configured and deployed as Azure Web App.
+3. Integrate with NiFi CI/CD pipeline.
+4. Support yaml as pipeline and configuration definition format to enable comments and (somehow) improve readability.
+5. Define pipeline outbound/inbound connections (from/to external pipelines/processors) (+)
    - As data acquisition manager I need to be able to specify inbound and outbound connections for the pipeline so that it can receive data or send data to other pipelines.
-3. Ability to upload templates in automated way.
-4. Passing parameters for expression formatting from command line - for reuse of parameters across pipelines. (-)
-5. Passing parameters for expression formatting from .properties file - for reuse of parameters across pipelines. (-)
-6. Apply processor property update, specified in the template - to link variables with the processor instances. This would allow for sensitive property values to be automatically restored, instead of specifying in update processor properties. Would remove the need for specifying internal workings of templates in the descriptor. (-)
-7. Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
-8. Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
-9. Instantiate pipeline steps from NiFi Registry (-)
-10. Commit pipeline to NiFi Registry (-)
+6. Ability to upload templates in automated way.
+7. Passing parameters for expression formatting from command line - for reuse of parameters across pipelines. (-)
+8. Define connections in the pipeline descriptor. - to support arbitrary complexity and steps with multiple inputs/outputs.  (-)
+9. Read Pipeline Descriptor from STDIN - useful for Multi-target/platform generation. (-)
+10. Instantiate pipeline steps from NiFi Registry (-)
+11. Commit pipeline to NiFi Registry (-)
+12. Interactive debugger for NiFi Builder.
 
 ## Starting the NiFi Builder
 
