@@ -1,0 +1,9 @@
+{
+    "parameters": {
+        "sdp_p_datalake_root": "/tmp/datalake",
+        "sdp_p_nifibuilderlab_id": "NiFiBuilderLab",
+        "sdp_p_nifibuilderlab_userlist_id": "RandomUser",
+        "sdp_p_nifibuilderlab_userlist_url": "http://randomuser.me/api/?format=json&results=100&seed=abcde",
+        "sdp_p_nifibuilderlab_userlist_filename": "user-list.json"
+    }
+}

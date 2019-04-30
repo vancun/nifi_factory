@@ -1,0 +1,10 @@
+{
+    "name": "UserListIngest",
+    "description": "Ingest users list.",
+    "properties": {
+    },
+    "pipeline": {
+        "steps": [
+        ]
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "name": "UserListIngest",
+    "description": "Ingest users list.",
+    "properties": {
+		"UserListIngest/Acquire/GetHTTP": {
+			"URL": "{sdp_p_nifibuilderlab_userlist_url}",
+            "Filename": "${{sdp_flow_filename}}"
+		}
+    },
+    "variables": {
+        "sdp_flow_filename": "{sdp_p_nifibuilderlab_userlist_filename}"
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "Acquire",
+                "type": "sdp_tpl_AcquireHTTP",
+                "description": "Acquire user list HTTP endpoint.",
+                "variables": {
+                    "sdp_flow_filename": null
+                }
+            },
+            {
+                "name": "Store",
+                "type": "sdp_tpl_StoreFile",
+                "description": "Store files in the data platform storage.",
+                "variables": {
+                    "sdp_dl_root": "{sdp_p_datalake_root}",
+                    "sdp_source_id": "{sdp_p_nifibuilderlab_id}",
+                    "sdp_dataset_id": "{sdp_p_nifibuilderlab_userlist_id}"
+                }
+            }
+        ]
+    }
+}

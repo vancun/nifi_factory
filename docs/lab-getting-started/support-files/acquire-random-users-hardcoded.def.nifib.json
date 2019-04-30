@@ -1,0 +1,31 @@
+{
+    "name": "UserListIngest",
+    "description": "Ingest users list.",
+    "properties": {
+		"UserListIngest/Acquire/GetHTTP": {
+			"URL": "http://randomuser.me/api/?format=json&results=100&seed=abcde"
+		}
+    },
+    "pipeline": {
+        "steps": [
+            {
+                "name": "Acquire",
+                "type": "sdp_tpl_AcquireHTTP",
+                "description": "Acquire user list HTTP endpoint.",
+                "variables": {
+                    "sdp_flow_filename": "user-list.json"
+                }
+            },
+            {
+                "name": "Store",
+                "type": "sdp_tpl_StoreFile",
+                "description": "Store files in the data platform storage.",
+                "variables": {
+                    "sdp_dl_root": "/tmp/datalake",
+                    "sdp_source_id": "NiFiBuilderLab",
+                    "sdp_dataset_id": "RandomUser"
+                }
+            }
+        ]
+    }
+}
