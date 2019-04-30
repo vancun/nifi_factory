@@ -242,7 +242,8 @@ def parse_args(args=None):
     parser = argparse.ArgumentParser(description='NiFi Flow Builder')
     parser.add_argument('-u', '--nifi-url', default='http://localhost:8080',
                         help='URL for the NiFi server. Default URL: http://localhost:8080')
-    parser.add_argument('-c', '--config-file', help='Additional json configuration file.')
+    parser.add_argument('-c', '--config-file',
+                        help='Additional json configuration file.')
     parser.add_argument('-o', '--overwrite', action='store_true',
                         help='Overwrite existing pipeline.')
     parser.add_argument('--bind-port')
@@ -291,7 +292,10 @@ if (__name__ == "__main__"):
     if args.config_file:
         with open(args.config_file) as conf_file:
             conf = json.load(conf_file)
-        pipeline.parameters.update(conf['parameters'])
+    else:
+        conf = { 'parameters': {} }
+
+    pipeline.parameters.update(conf['parameters'])
         
     if args.bind_port:
             http_app.run(debug=True, host='0.0.0.0', port=args.bind_port)
